@@ -80,7 +80,7 @@ public class CMDHelperWindowService extends Service {
             LinearLayout topLayout = new LinearLayout(this);
             topLayout.setOrientation(LinearLayout.HORIZONTAL);
             topLayout.setGravity(Gravity.CENTER);
-            topLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.08).intValue()));
+            topLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.06).intValue()));
             topLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
             topLayout.setElevation(10f);
             topLayout.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +99,7 @@ public class CMDHelperWindowService extends Service {
             // 指令列表
             LinearLayout cmdListLayout = new LinearLayout(this);
             cmdListLayout.setOrientation(LinearLayout.VERTICAL);
-            cmdListLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.84).intValue()));
+            cmdListLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.88).intValue()));
             ListView cmdListView = new ListView(this);
             ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, new Object[]{"execute","help","say","title","kill","tell","msg","w"});
             cmdListView.setAdapter(arrayAdapter);
@@ -107,12 +107,12 @@ public class CMDHelperWindowService extends Service {
             // 下方搜索框
             LinearLayout bottomLayout = new LinearLayout(this);
             bottomLayout.setOrientation(LinearLayout.HORIZONTAL);
-            bottomLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.08).intValue()));
+            bottomLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.06).intValue()));
             bottomLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
             bottomLayout.setElevation(10f);
             // 搜索框
             EditText searchEditText = new EditText(this);
-            searchEditText.setLayoutParams(new LinearLayout.LayoutParams(new Double(screenWidth * 0.8).intValue(), new Double(screenHeight * 0.08).intValue()));
+            searchEditText.setLayoutParams(new LinearLayout.LayoutParams(new Double(screenWidth * 0.8).intValue(), new Double(screenHeight * 0.06).intValue()));
             searchEditText.setHint("Type command here");
             searchEditText.setBackgroundColor(Color.parseColor("#FFFFFF"));
             // 监听事件
