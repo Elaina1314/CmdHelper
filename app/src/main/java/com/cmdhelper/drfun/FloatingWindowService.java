@@ -61,7 +61,6 @@ public class FloatingWindowService extends Service {
         showFloatingWindow();
         return super.onStartCommand(intent, flags, startId);
     }
-
     private void showFloatingWindow() {
         // 按钮背景 AdminWeb Style
         GradientDrawable buttonDrawable = new GradientDrawable();

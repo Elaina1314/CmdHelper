@@ -103,7 +103,6 @@ public class CMDHelperWindowService extends Service {
             ListView cmdListView = new ListView(this);
             ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, new Object[]{"execute","help","say","title","kill","tell","msg","w"});
             cmdListView.setAdapter(arrayAdapter);
-
             // 下方搜索框
             LinearLayout bottomLayout = new LinearLayout(this);
             bottomLayout.setOrientation(LinearLayout.HORIZONTAL);
