@@ -1,0 +1,14 @@
+name: APKProgram
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  set_jdk:
+    runs-on: ubuntu-18.04
+    name: 指定编译JDK
+  program:
+    name: 编译
+    runs-on: ubuntu-18.04
