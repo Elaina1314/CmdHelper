@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     public static final int CODE_WINDOW = 0; // 标识
     public static boolean windowOpen = false; // 判断悬浮窗是否已经打开
+    public static boolean cmdhelperOpen = false; // 判断cmdhelperservice是否已经打开
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
