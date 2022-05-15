@@ -119,7 +119,6 @@ public class CMDHelperWindowService extends Service {
             searchEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                 }
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -127,7 +126,6 @@ public class CMDHelperWindowService extends Service {
                 }
                 @Override
                 public void afterTextChanged(Editable editable) {
-
                 }
             }
             );
