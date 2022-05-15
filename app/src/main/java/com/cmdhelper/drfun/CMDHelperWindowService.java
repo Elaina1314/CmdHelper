@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -102,6 +103,7 @@ public class CMDHelperWindowService extends Service {
             ListView cmdListView = new ListView(this);
             ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, new Object[]{"execute","help","say","title","kill","tell","msg","w"});
             cmdListView.setAdapter(arrayAdapter);
+
             // 下方搜索框
             LinearLayout bottomLayout = new LinearLayout(this);
             bottomLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -127,6 +129,15 @@ public class CMDHelperWindowService extends Service {
                 @Override
                 public void afterTextChanged(Editable editable) {
 
+                }
+            }
+            );
+            // 监听事件
+            cmdListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String result = ((TextView) view).getText().toString();
+                    searchEditText.setText(result);
                 }
             }
             );
