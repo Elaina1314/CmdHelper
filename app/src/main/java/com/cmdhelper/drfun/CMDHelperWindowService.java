@@ -116,7 +116,6 @@ public class CMDHelperWindowService extends Service {
             searchEditText.setHint("Type command here");
             searchEditText.setBackgroundColor(Color.parseColor("#FFFFFF"));
             // 监听事件
-            // 拉起输入法
             searchEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
