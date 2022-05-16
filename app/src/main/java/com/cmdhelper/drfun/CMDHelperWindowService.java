@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,12 +54,14 @@ public class CMDHelperWindowService extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         showFloatingWindow();
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void showFloatingWindow() {
         // 背景
         GradientDrawable buttonDrawable = new GradientDrawable();
