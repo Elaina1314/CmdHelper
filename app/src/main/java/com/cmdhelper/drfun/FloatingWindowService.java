@@ -61,7 +61,6 @@ public class FloatingWindowService extends Service {
         showFloatingWindow();
         return super.onStartCommand(intent, flags, startId);
     }
-
     private void showFloatingWindow() {
         // 按钮背景 AdminWeb Style
         GradientDrawable buttonDrawable = new GradientDrawable();
@@ -71,6 +70,16 @@ public class FloatingWindowService extends Service {
             linearLayout = new LinearLayout(this);
             linearLayout.setBackgroundDrawable(buttonDrawable);
             linearLayout.setGravity(Gravity.CENTER);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!MainActivity.cmdhelperOpen) {
+                        startService(new Intent(FloatingWindowService.this, CMDHelperWindowService.class));
+                        MainActivity.cmdhelperOpen = true;
+                    }
+                }
+            }
+            );
             TextView textView = new TextView(this);
             textView.setText("🏆");
             linearLayout.addView(textView);
