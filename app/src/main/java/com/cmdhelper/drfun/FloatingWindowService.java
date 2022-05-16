@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -57,14 +56,11 @@ public class FloatingWindowService extends Service {
         return null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         showFloatingWindow();
         return super.onStartCommand(intent, flags, startId);
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void showFloatingWindow() {
         // 按钮背景 AdminWeb Style
         GradientDrawable buttonDrawable = new GradientDrawable();
@@ -74,6 +70,16 @@ public class FloatingWindowService extends Service {
             linearLayout = new LinearLayout(this);
             linearLayout.setBackgroundDrawable(buttonDrawable);
             linearLayout.setGravity(Gravity.CENTER);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!MainActivity.cmdhelperOpen) {
+                        startService(new Intent(FloatingWindowService.this, CMDHelperWindowService.class));
+                        MainActivity.cmdhelperOpen = true;
+                    }
+                }
+            }
+            );
             TextView textView = new TextView(this);
             textView.setText("🏆");
             linearLayout.addView(textView);
