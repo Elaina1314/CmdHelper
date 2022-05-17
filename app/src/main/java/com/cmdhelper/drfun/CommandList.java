@@ -86,17 +86,6 @@ public class CommandList {
         return commandlist;
     }
 
-    public static Object[] commandTarget() {
-        Object[] commandtarget = new Object[]{
-                "@p",
-                "@s",
-                "@a",
-                "@r",
-                "@e",
-        };
-        return commandtarget;
-    }
-
     public static Object[] commandTargetSelector() {
         Object[] commandtargetselector = new Object[]{
                 "@p",

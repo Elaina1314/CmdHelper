@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -110,6 +111,8 @@ public class CMDHelperWindowService extends Service {
             cmdListLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.88).intValue()));
             ListView cmdListView = new ListView(this);
             ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, CommandList.commandList());
+            ArrayAdapter commandTargetSelectorAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, CommandList.commandTargetSelector()); //选择器列表
+            ArrayAdapter commandTargetSelectorParametersAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, CommandList.commandTargetSelectorParameters()); //选择器参数列表
             cmdListView.setAdapter(arrayAdapter);
             // 下方搜索框
             LinearLayout bottomLayout = new LinearLayout(this);
@@ -119,6 +122,9 @@ public class CMDHelperWindowService extends Service {
             bottomLayout.setElevation(10f);
             // 搜索框
             EditText searchEditText = new EditText(this);
+            searchEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+            searchEditText.setMaxLines(1);
+            searchEditText.setLines(1);
             searchEditText.setLayoutParams(new LinearLayout.LayoutParams(new Double(screenWidth * 0.8).intValue(), new Double(screenHeight * 0.06).intValue()));
             searchEditText.setHint("Type command here");
             searchEditText.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -141,7 +147,26 @@ public class CMDHelperWindowService extends Service {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String result = ((TextView) view).getText().toString();
+                    /* 奈何本人是个瓜皮，动态合成的解决方案还望大佬指点，下面的代码用不了
+                    switch (result){
+                        case "execute":
+                            cmdListView.setAdapter(commandTargetSelectorAdapter);
+                            searchEditText.setText("execute");
+                            System.out.println(result);
+                            String result1 = ((TextView) view).getText().toString();
+                            switch (result1){
+                                case "@a":
+                                    cmdListView.setAdapter(commandTargetSelectorParametersAdapter);
+                                    searchEditText.setText("execute" + result);
+                                    System.out.println(result1);
+                                    break;
+                            }
+                            break;
+
+                    }
+                     */
                     searchEditText.setText(result);
+                    System.out.println(result); //查错用的
                 }
             }
             );
