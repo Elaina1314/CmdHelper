@@ -2,7 +2,9 @@ package com.cmdhelper.drfun;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Button startFloat = new Button(this);
         startFloat.setText("点击我拉起悬浮窗");
         startFloat.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 if (!Settings.canDrawOverlays(MainActivity.this)) {
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(mainLayout);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

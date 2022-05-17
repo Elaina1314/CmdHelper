@@ -1,5 +1,6 @@
 package com.cmdhelper.drfun;
 
+import com.cmdhelper.drfun.CommandList;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -24,12 +26,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import java.io.*;
 
 public class CMDHelperWindowService extends Service {
+
     public static boolean isStarted = false;
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
     private LinearLayout linearLayout;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -59,12 +64,14 @@ public class CMDHelperWindowService extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         showFloatingWindow();
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void showFloatingWindow() {
         // 背景
         GradientDrawable buttonDrawable = new GradientDrawable();
@@ -97,11 +104,12 @@ public class CMDHelperWindowService extends Service {
             TextView textView = new TextView(this);
             textView.setText("CMDHelper");
             // 指令列表
+
             LinearLayout cmdListLayout = new LinearLayout(this);
             cmdListLayout.setOrientation(LinearLayout.VERTICAL);
             cmdListLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.88).intValue()));
             ListView cmdListView = new ListView(this);
-            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, new Object[]{"execute","help","say","title","kill","tell","msg","w"});
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, CommandList.commandList());
             cmdListView.setAdapter(arrayAdapter);
             // 下方搜索框
             LinearLayout bottomLayout = new LinearLayout(this);
