@@ -59,8 +59,69 @@ public class CommandList {
                 "spreadplayers",
                 "stop",
                 "stopsound",
-
+                "structure",
+                "summon",
+                "tag",
+                "teleport",
+                "tell",
+                "tellraw",
+                "testfor",
+                "testforblock",
+                "testforblocks",
+                "tickingarea",
+                "time",
+                "title",
+                "titleraw",
+                "toggledownfall",
+                "tp",
+                "volumearea",
+                "w",
+                "wb",
+                "weather",
+                "whitelist",
+                "worldbuilder",
+                "wsserver",
+                "xp",
         };
         return commandlist;
+    }
+
+    public static Object[] commandTargetSelector() {
+        Object[] commandtargetselector = new Object[]{
+                "@p",
+                "@s",
+                "@a",
+                "@r",
+                "@e",
+        };
+        return commandtargetselector;
+    }
+
+    public static Object[] commandTargetSelectorParameters() {
+        Object[] commandtargetselectorparameters = new Object[]{
+                "x",
+                "y",
+                "z",
+                "r",
+                "rm",
+                "dx",
+                "dy",
+                "dz",
+                "scores",
+                "tag",
+                "name",
+                "type",
+                "family",
+                "rx",
+                "rxm",
+                "ry",
+                "rym",
+                "hasitem",
+                "l",
+                "lm",
+                "m",
+                "c",
+        };
+        return commandtargetselectorparameters;
     }
 }
