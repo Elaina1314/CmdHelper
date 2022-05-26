@@ -1,7 +1,10 @@
-package com.cmdhelper.drfun;
+package com.cmdhelper.drfun.Services;
 
+import com.cmdhelper.drfun.Util.CommandList;
+import com.cmdhelper.drfun.MainActivity;
+
+import android.annotation.SuppressLint;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -10,26 +13,26 @@ import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class CMDHelperWindowService extends Service {
+
     public static boolean isStarted = false;
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
     private LinearLayout linearLayout;
+
+    @SuppressLint("RtlHardcoded")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -59,12 +62,14 @@ public class CMDHelperWindowService extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         showFloatingWindow();
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void showFloatingWindow() {
         // 背景
         GradientDrawable buttonDrawable = new GradientDrawable();
@@ -72,6 +77,7 @@ public class CMDHelperWindowService extends Service {
         // 获取屏幕宽高
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
         int screenHeight = getResources().getDisplayMetrics().heightPixels;
+
         if (Settings.canDrawOverlays(this)) {
             linearLayout = new LinearLayout(this);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -80,38 +86,40 @@ public class CMDHelperWindowService extends Service {
             LinearLayout topLayout = new LinearLayout(this);
             topLayout.setOrientation(LinearLayout.HORIZONTAL);
             topLayout.setGravity(Gravity.CENTER);
-            topLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.06).intValue()));
+            topLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, Double.valueOf(screenHeight * 0.06).intValue()));
             topLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
             topLayout.setElevation(10f);
-            topLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    windowManager.removeView(linearLayout);
-                    isStarted = false;
-                    MainActivity.cmdhelperOpen = false;
-                    stopSelf();
-
-                }
+            topLayout.setOnClickListener(v -> {
+                windowManager.removeView(linearLayout);
+                isStarted = false;
+                MainActivity.cmdhelperOpen = false;
+                stopSelf();
             }
             );
             TextView textView = new TextView(this);
             textView.setText("CMDHelper");
             // 指令列表
+
             LinearLayout cmdListLayout = new LinearLayout(this);
             cmdListLayout.setOrientation(LinearLayout.VERTICAL);
-            cmdListLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.88).intValue()));
+            cmdListLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, Double.valueOf(screenHeight * 0.88).intValue()));
             ListView cmdListView = new ListView(this);
-            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, new Object[]{"execute","help","say","title","kill","tell","msg","w"});
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, CommandList.commandList());
+//            ArrayAdapter commandTargetSelectorAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, CommandList.commandTargetSelector()); //选择器列表
+//            ArrayAdapter commandTargetSelectorParametersAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, CommandList.commandTargetSelectorParameters()); //选择器参数列表
             cmdListView.setAdapter(arrayAdapter);
             // 下方搜索框
             LinearLayout bottomLayout = new LinearLayout(this);
             bottomLayout.setOrientation(LinearLayout.HORIZONTAL);
-            bottomLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, new Double(screenHeight * 0.06).intValue()));
+            bottomLayout.setLayoutParams(new LinearLayout.LayoutParams(screenWidth, Double.valueOf(screenHeight * 0.06).intValue()));
             bottomLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
             bottomLayout.setElevation(10f);
             // 搜索框
             EditText searchEditText = new EditText(this);
-            searchEditText.setLayoutParams(new LinearLayout.LayoutParams(new Double(screenWidth * 0.8).intValue(), new Double(screenHeight * 0.06).intValue()));
+            searchEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+            searchEditText.setMaxLines(1);
+            searchEditText.setLines(1);
+            searchEditText.setLayoutParams(new LinearLayout.LayoutParams(Double.valueOf(screenWidth * 0.8).intValue(), Double.valueOf(screenHeight * 0.06).intValue()));
             searchEditText.setHint("Type command here");
             searchEditText.setBackgroundColor(Color.parseColor("#FFFFFF"));
             // 监听事件
@@ -129,12 +137,9 @@ public class CMDHelperWindowService extends Service {
             }
             );
             // 监听事件
-            cmdListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String result = ((TextView) view).getText().toString();
-                    searchEditText.setText(result);
-                }
+            cmdListView.setOnItemClickListener((parent, view, position, id) -> {
+                String result = ((TextView) view).getText().toString();
+                searchEditText.setText(result);
             }
             );
             // 添加布局

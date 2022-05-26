@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".FloatingWindowService" />
-        <service android:name=".CMDHelperWindowService" />
+        <service android:name=".Services.FloatingWindowService" />
+        <service android:name=".Services.CMDHelperWindowService" />
     </application>
 </manifest>
