@@ -8,7 +8,6 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.Gravity;
@@ -69,23 +68,21 @@ public class FloatingWindowService extends Service {
         GradientDrawable buttonDrawable = new GradientDrawable();
         buttonDrawable.setCornerRadius(360);
         buttonDrawable.setColor(Color.parseColor("#aaFFFF00"));
-        if (Settings.canDrawOverlays(this)) {
-            LinearLayout linearLayout = new LinearLayout(this);
-            linearLayout.setBackground(buttonDrawable);
-            linearLayout.setGravity(Gravity.CENTER);
-            linearLayout.setOnClickListener(v -> {
-                if (!MainActivity.cmdhelperOpen) {
-                    startService(new Intent(FloatingWindowService.this, CMDHelperWindowService.class));
-                    MainActivity.cmdhelperOpen = true;
-                }
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setBackground(buttonDrawable);
+        linearLayout.setGravity(Gravity.CENTER);
+        linearLayout.setOnClickListener(v -> {
+            if (!MainActivity.cmdhelperOpen) {
+                startService(new Intent(FloatingWindowService.this, CMDHelperWindowService.class));
+                MainActivity.cmdhelperOpen = true;
             }
-            );
-            TextView textView = new TextView(this);
-            textView.setText("🏆");
-            linearLayout.addView(textView);
-            windowManager.addView(linearLayout, layoutParams);
-            linearLayout.setOnTouchListener(new FloatingOnTouchListener());
         }
+        );
+        TextView textView = new TextView(this);
+        textView.setText("🏆");
+        linearLayout.addView(textView);
+        windowManager.addView(linearLayout, layoutParams);
+        linearLayout.setOnTouchListener(new FloatingOnTouchListener());
     }
 
     private class FloatingOnTouchListener implements View.OnTouchListener {

@@ -1,9 +1,9 @@
 package com.cmdhelper.drfun.Util;
 
-import org.jetbrains.annotations.Contract;
+
 
 public class CommandList {
-    @Contract(pure = true)
+    @org.jetbrains.annotations.Contract(value = " -> new", pure = true)
     public static Object[] commandList() {
         return new Object[]{
                 "?",
