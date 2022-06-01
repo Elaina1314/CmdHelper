@@ -1,5 +1,6 @@
 package com.cmdhelper.drfun;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -7,7 +8,11 @@ import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,14 +24,29 @@ public class MainActivity extends AppCompatActivity {
     public static final int CODE_WINDOW = 0; // 标识
     public static boolean windowOpen = false; // 判断悬浮窗是否已经打开
     public static boolean cmdhelperOpen = false; // 判断cmdhelperservice是否已经打开
+
+    @SuppressLint("RtlHardcoded")
     @Override
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 背景布局
+        // 隐藏ActionBar&状态栏沉浸
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         LinearLayout mainLayout = new LinearLayout(this);
+        mainLayout.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
         mainLayout.setOrientation(LinearLayout.VERTICAL);
-        mainLayout.setGravity(Gravity.CENTER);
+        mainLayout.setGravity(Gravity.CENTER | Gravity.TOP);
+        mainLayout.setBackgroundColor(0xffffffff);
+        // toolbar
+        Toolbar toolbar = new Toolbar(this);
+        toolbar.setTitle("CmdHelper");
+
         // 关于
         TextView about = new TextView(this);
         about.setText("CMDHelper 开源且免费的命令助手\n开源链接:https://github.com/Elaina1314/CmdHelper");
@@ -61,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         }
         );
         // 添加到布局
+        mainLayout.addView(toolbar);
         mainLayout.addView(about);
         mainLayout.addView(getPermission);
         mainLayout.addView(startFloat);
@@ -71,14 +92,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODE_WINDOW) {
-            if (Settings.canDrawOverlays(this)) {
-                // 权限申请成功
-                Toast.makeText(MainActivity.this, "权限申请成功！", Toast.LENGTH_SHORT).show();
-            } else {
-                // 权限申请失败
-                Toast.makeText(MainActivity.this, "权限申请失败！", Toast.LENGTH_SHORT).show();
-            }
+        if (requestCode != CODE_WINDOW) {
+            return;
         }
+        if (Settings.canDrawOverlays(this)) {
+            Toast.makeText(MainActivity.this, "权限申请成功！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(MainActivity.this, "权限申请失败！", Toast.LENGTH_SHORT).show();
     }
 }
