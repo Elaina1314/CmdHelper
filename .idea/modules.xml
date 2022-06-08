@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/命令助手.iml" filepath="$PROJECT_DIR$/.idea/modules/命令助手.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/命令助手.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/命令助手.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/命令助手.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/命令助手.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/命令助手.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/命令助手.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/命令助手.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/命令助手.app.unitTest.iml" />
     </modules>
   </component>
 </project>

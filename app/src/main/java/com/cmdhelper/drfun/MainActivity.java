@@ -18,7 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cmdhelper.drfun.Extension.ExtensionUtil;
 import com.cmdhelper.drfun.Services.FloatingWindowService;
+import com.cmdhelper.drfun.Widget.MIUIEditText;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity {
     public static final int CODE_WINDOW = 0; // 标识
@@ -75,16 +79,37 @@ public class MainActivity extends AppCompatActivity {
                 startService(new Intent(MainActivity.this, FloatingWindowService.class));
                 windowOpen = true;
                 Toast.makeText(MainActivity.this, "已拉起悬浮窗", Toast.LENGTH_SHORT).show();
+
             } catch (Exception e) {
-                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Error")
+                        .setContentText(e.getMessage())
+                        .show();
             }
         }
         );
+        // Test
+        MIUIEditText miuiEditText = new MIUIEditText(this);
+        miuiEditText.setHint("Type");
+        Button test = new Button(this);
+        test.setText("测试");
+        test.setOnClickListener(v -> {
+            try {
+                Toast.makeText(this, "Success: "+ExtensionUtil.isExtensionPackValid(miuiEditText.getText().toString()), Toast.LENGTH_SHORT).show();
+            } catch(Exception e) {
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Error")
+                        .setContentText(e.getMessage())
+                        .show();
+            }
+        });
         // 添加到布局
         mainLayout.addView(toolbar);
         mainLayout.addView(about);
         mainLayout.addView(getPermission);
         mainLayout.addView(startFloat);
+        mainLayout.addView(miuiEditText);
+        mainLayout.addView(test);
         setContentView(mainLayout);
     }
 

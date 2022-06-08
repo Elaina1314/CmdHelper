@@ -1,12 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: android.arch.lifecycle:livedata-core:1.1.1@aar">
     <CLASSES>
-      <root url="jar://D:/.gradle/caches/transforms-3/0b92410e31a71645093f7983ed0b80f1/transformed/livedata-core-1.1.1/jars/classes.jar!/" />
       <root url="file://D:/.gradle/caches/transforms-3/0b92410e31a71645093f7983ed0b80f1/transformed/livedata-core-1.1.1/res" />
-      <root url="file://D:/.gradle/caches/transforms-3/0b92410e31a71645093f7983ed0b80f1/transformed/livedata-core-1.1.1/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0b92410e31a71645093f7983ed0b80f1/transformed/livedata-core-1.1.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0b92410e31a71645093f7983ed0b80f1/transformed/livedata-core-1.1.1/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0b92410e31a71645093f7983ed0b80f1/transformed/livedata-core-1.1.1/jars/classes.jar!/" />
+      <root url="file://D:/.gradle/caches/transforms-3/ac97d792d8facf5ba84e5095d2b5730f/transformed/livedata-core-1.1.1/res" />
+      <root url="file://D:/.gradle/caches/transforms-3/ac97d792d8facf5ba84e5095d2b5730f/transformed/livedata-core-1.1.1/AndroidManifest.xml" />
+      <root url="jar://D:/.gradle/caches/transforms-3/ac97d792d8facf5ba84e5095d2b5730f/transformed/livedata-core-1.1.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

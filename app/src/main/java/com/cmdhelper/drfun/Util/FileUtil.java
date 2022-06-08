@@ -7,13 +7,21 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 public class FileUtil {
 
@@ -108,4 +116,24 @@ public class FileUtil {
         return name;
     }
 
+    @NonNull
+    public static List<String> getZipFileName(String path) {
+        List<String> list = new ArrayList<>();
+        try {
+            ZipFile zipFile = new ZipFile(path);
+            Enumeration<? extends ZipEntry> entries = zipFile.entries();
+            while (entries.hasMoreElements()) {
+                list.add(entries.nextElement().getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 封装上面的类
+    public static boolean isZipHasFile(String path, String fileName) {
+        List<String> fileNames = getZipFileName(path);
+        return fileNames.contains(fileName); // 判断是否存在
+    }
 }
